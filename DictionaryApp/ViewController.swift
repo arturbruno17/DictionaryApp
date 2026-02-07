@@ -11,7 +11,7 @@ class ViewController: UIViewController {
 
     let languagesRepository = LanguagesRepository()
     
-    var languagesResponse: String? = nil {
+    var languagesResponse: [LanguageWithWords]? = nil {
         didSet {
             showResponse()
         }
@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         let frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         let text = UITextView(frame: frame)
         text.textAlignment = .center
-        text.text = languagesResponse ?? "Error loading data"
+        text.text = "\(languagesResponse?.debugDescription ?? "Error loading data")"
         view.addSubview(text)
     }
 
