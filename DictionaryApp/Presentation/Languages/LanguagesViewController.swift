@@ -10,10 +10,10 @@ import UIKit
 class LanguagesViewController: UICollectionViewController {
 
     // MARK: View controller repositories
-    let languagesRepository = LanguagesRepository()
+    private let languagesRepository = LanguagesRepository()
     
     // MARK: View controller data
-    var languagesResponse: [LanguageWithWords]? = nil {
+    private var languagesResponse: [LanguageWithWords]? = nil {
         didSet {
             collectionView.reloadData()
         }
@@ -51,6 +51,13 @@ class LanguagesViewController: UICollectionViewController {
         let languageWithWords = languagesResponse![index]
         cell.configure(languageWithWords: languageWithWords)
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath.row
+        let languageWithWords = languagesResponse![index]
+        let vc = DictionaryEntryViewController(languageName: languageWithWords.name)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
