@@ -19,9 +19,8 @@ class LanguagesViewController: UICollectionViewController {
         }
     }
     
-    init() {    
+    init(repository: LanguagesRepository = LanguagesRepository()) {
         super.init(collectionViewLayout: LanguagesViewController.makeLayout())
-        
         collectionView.register(LanguagesViewCell.self, forCellWithReuseIdentifier: LanguagesViewCell.identifier)
     }
     
@@ -36,6 +35,7 @@ class LanguagesViewController: UICollectionViewController {
         
         view.backgroundColor = .systemBackground
         Task {
+            // TODO: Handle failure cases
             languagesResponse = try? await languagesRepository.getLanguages()
                 .sorted { $0.name <= $1.name }
         }
