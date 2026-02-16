@@ -56,7 +56,10 @@ class LanguagesViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
         let languageWithWords = languagesResponse![index]
-        let vc = DictionaryEntryViewController(languageName: languageWithWords.name)
+        let vc = DictionaryEntryViewController(
+            languageName: languageWithWords.name,
+            languageCode: languageWithWords.code
+        )
         navigationController?.pushViewController(vc, animated: true)
     }
 }

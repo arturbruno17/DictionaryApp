@@ -10,12 +10,9 @@ import Foundation
 struct EntriesByLanguageAndWord: Codable {
     let word: String
     let entries: [Entry]
-    let source: Source
 }
 
 struct Entry: Codable {
-    let language: Language
-    let partOfSpeech: String
     let pronunciations: [Pronunciation]
     let forms: [Form]
     let senses: [Sense]
@@ -26,11 +23,6 @@ struct Entry: Codable {
 struct Form: Codable {
     let word: String
     let tags: [String]
-}
-
-struct Language: Codable {
-    let code: String
-    let name: String
 }
 
 struct LanguageWithWords: Codable {
@@ -57,26 +49,14 @@ struct Sense: Codable {
     let quotes: [Quote]
     let synonyms: [String]
     let antonyms: [String]
-    let translations: [Translation]?
     let subsenses: [Sense]
 }
 
-struct Quote: Codable {
+struct Quote: Codable, CustomStringConvertible {
     let text: String
     let reference: String
-}
-
-struct Translation: Codable {
-    let language: Language
-    let word: String
-}
-
-struct Source: Codable {
-    let url: String
-    let license: License
-}
-
-struct License: Codable {
-    let name: String
-    let url: String
+    
+    var description: String {
+        "\(text) (\(reference))"
+    }
 }
