@@ -13,16 +13,16 @@ class SenseTableViewCell: UITableViewCell {
 
     let definitionView: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         return label
     }()
     
     let quotesAndExamplesView: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .light)
-        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         return label
     }()
     
