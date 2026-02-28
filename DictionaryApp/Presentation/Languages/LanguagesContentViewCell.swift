@@ -1,15 +1,15 @@
 //
-//  LanguagesViewCell.swift
+//  LanguagesContentView.swift
 //  DictionaryApp
 //
-//  Created by Artur Bruno on 07/02/26.
+//  Created by Artur Bruno on 28/02/26.
 //
 
 import UIKit
 
-class LanguagesViewCell: UICollectionViewCell {
-
-    static let identifier = "LanguagesViewCell"
+class LanguagesContentViewCell: UICollectionViewCell, UIContentView {
+    
+    static let identifier = "LanguagesContentViewCell"
 
     private let stackView = {
         let stackView = UIStackView()
@@ -40,10 +40,15 @@ class LanguagesViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
+    var configuration: any UIContentConfiguration {
+        didSet { configure(configuration) }
+    }
+    
     override init(frame: CGRect) {
+        configuration = LanguagesContentConfiguration(languageWithWords: LanguageWithWords.empty())
         super.init(frame: frame)
-
+        
         contentView.backgroundColor = .systemGroupedBackground
         contentView.layer.cornerRadius = 8
 
@@ -60,12 +65,12 @@ class LanguagesViewCell: UICollectionViewCell {
         stackView.setCustomSpacing(4, after: languageCodeView)
         stackView.addArrangedSubview(wordsCountView)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         let margins = contentView.layoutMarginsGuide
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: margins.topAnchor),
@@ -74,8 +79,11 @@ class LanguagesViewCell: UICollectionViewCell {
             stackView.bottomAnchor.constraint(equalTo: margins.bottomAnchor),
         ])
     }
-
-    func configure(languageWithWords: LanguageWithWords) {
+    
+    private func configure(_ configuration: any UIContentConfiguration) {
+        guard let configuration = configuration as? LanguagesContentConfiguration else { return }
+        
+        let languageWithWords = configuration.languageWithWords
         languageNameView.text = languageWithWords.name
         languageCodeView.text = languageWithWords.code.uppercased()
         wordsCountView.text = "Words amount: \(languageWithWords.words)"

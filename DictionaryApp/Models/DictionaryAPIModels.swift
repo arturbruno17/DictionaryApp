@@ -29,6 +29,10 @@ struct LanguageWithWords: Codable {
     let code: String
     let name: String
     let words: UInt32
+    
+    static func empty() -> Self {
+        return Self(code: "", name: "", words: 0)
+    }
 }
 
 struct Pronunciation: Codable {

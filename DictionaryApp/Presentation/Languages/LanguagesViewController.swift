@@ -21,7 +21,7 @@ class LanguagesViewController: UICollectionViewController {
     
     init(repository: LanguagesRepository = LanguagesRepository()) {
         super.init(collectionViewLayout: LanguagesViewController.makeLayout())
-        collectionView.register(LanguagesViewCell.self, forCellWithReuseIdentifier: LanguagesViewCell.identifier)
+        collectionView.register(LanguagesContentViewCell.self, forCellWithReuseIdentifier: LanguagesContentViewCell.identifier)
     }
     
     required init?(coder: NSCoder) {
@@ -46,10 +46,11 @@ class LanguagesViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LanguagesViewCell.identifier, for: indexPath) as! LanguagesViewCell
-        let index = indexPath.row
-        let languageWithWords = languagesResponse![index]
-        cell.configure(languageWithWords: languageWithWords)
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: LanguagesContentViewCell.identifier,
+            for: indexPath
+        ) as! LanguagesContentViewCell
+        cell.configuration = LanguagesContentConfiguration(languageWithWords: languagesResponse![indexPath.row])
         return cell
     }
     
