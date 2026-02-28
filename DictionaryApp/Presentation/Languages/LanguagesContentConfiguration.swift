@@ -12,7 +12,7 @@ struct LanguagesContentConfiguration: UIContentConfiguration {
     var languageWithWords: LanguageWithWords
     
     func makeContentView() -> any UIView & UIContentView {
-        return LanguagesContentViewCell(frame: .zero)
+        return LanguagesContentView(with: self)
     }
     
     func updated(for state: any UIConfigurationState) -> Self {
