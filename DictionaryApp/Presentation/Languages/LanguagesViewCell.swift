@@ -11,6 +11,13 @@ class LanguagesViewCell: UICollectionViewCell {
 
     static let identifier = "LanguagesViewCell"
 
+    private let stackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     private let languageNameView: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .bold)
@@ -40,34 +47,32 @@ class LanguagesViewCell: UICollectionViewCell {
         contentView.backgroundColor = .systemGroupedBackground
         contentView.layer.cornerRadius = 8
 
-        contentView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        contentView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.black.cgColor.copy(alpha: 0.3)
 
-        contentView.addSubview(languageNameView)
-        contentView.addSubview(languageCodeView)
-        contentView.addSubview(wordsCountView)
-
-        let margins = contentView.layoutMarginsGuide
-
-        NSLayoutConstraint.activate([
-            languageNameView.topAnchor.constraint(equalTo: margins.topAnchor),
-            languageNameView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
-            languageNameView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
-
-            languageCodeView.topAnchor.constraint(equalTo: languageNameView.bottomAnchor, constant: 20),
-            languageCodeView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
-            languageCodeView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
-
-            wordsCountView.topAnchor.constraint(equalTo: languageCodeView.bottomAnchor, constant: 4),
-            wordsCountView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
-            wordsCountView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
-            wordsCountView.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
-        ])
+        contentView.addSubview(stackView)
+        setupConstraints()
+        
+        stackView.addArrangedSubview(languageNameView)
+        stackView.setCustomSpacing(20, after: languageNameView)
+        stackView.addArrangedSubview(languageCodeView)
+        stackView.setCustomSpacing(4, after: languageCodeView)
+        stackView.addArrangedSubview(wordsCountView)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupConstraints() {
+        let margins = contentView.layoutMarginsGuide
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: margins.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: margins.bottomAnchor),
+        ])
     }
 
     func configure(languageWithWords: LanguageWithWords) {
