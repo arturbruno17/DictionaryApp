@@ -18,9 +18,9 @@ class DictionaryEntryTableView : UITableView, UITableViewDataSource, UITableView
         delegate = self
         dataSource = self
         register(UITableViewHeaderFooterView.self,
-                     forHeaderFooterViewReuseIdentifier: "Header")
+                 forHeaderFooterViewReuseIdentifier: UITableViewHeaderFooterView.identifier)
         register(SenseTableViewCell.self, forCellReuseIdentifier: SenseTableViewCell.identifier)
-        register(UITableViewCell.self, forCellReuseIdentifier: "General")
+        register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
     }
     
     required init?(coder: NSCoder) {
@@ -32,7 +32,7 @@ class DictionaryEntryTableView : UITableView, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header")!
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: UITableViewHeaderFooterView.identifier)!
         
         var contentConfiguration = header.defaultContentConfiguration()
         contentConfiguration.text = CompactedWordDetails.Options.allCases[section].rawValue
@@ -56,3 +56,6 @@ class DictionaryEntryTableView : UITableView, UITableViewDataSource, UITableView
     }
 }
     
+extension UITableViewHeaderFooterView {
+    static let identifier = "UITableViewHeaderFooterView"
+}

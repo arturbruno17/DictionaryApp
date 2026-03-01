@@ -20,9 +20,13 @@ struct Entry: Codable {
     let antonyms: [String]
 }
 
-struct Form: Codable {
+struct Form: Codable, CustomStringConvertible {
     let word: String
     let tags: [String]
+    
+    var description: String {
+        "\(word): \(tags.joined(separator: ","))"
+    }
 }
 
 struct LanguageWithWords: Codable {
@@ -35,10 +39,14 @@ struct LanguageWithWords: Codable {
     }
 }
 
-struct Pronunciation: Codable {
+struct Pronunciation: Codable, CustomStringConvertible {
     let type: PronunciationType
     let text: String
     let tags: [String]
+    
+    var description: String {
+        "\(text): \(tags.joined(separator: ","))"
+    }
 }
 
 enum PronunciationType: String, Codable {

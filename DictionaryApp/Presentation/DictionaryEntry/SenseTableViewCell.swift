@@ -9,8 +9,8 @@ import UIKit
 
 class SenseTableViewCell: UITableViewCell {
 
-    static let identifier = "SenseTableViewCell"
-
+    override class var identifier: String { "SenseTableViewCell" }
+    
     let definitionView: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
